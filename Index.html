@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,46 +9,52 @@ body{
     color:white;
     font-family:Arial,sans-serif;
     text-align:center;
-    margin-top:25vh;
+    margin-top:30vh;
 }
 button{
-    font-size:24px;
+    font-size:32px;
     padding:20px 40px;
-    cursor:pointer;
 }
 </style>
 </head>
 <body>
 
 <h1>🍀 Good Luck Generator 🍀</h1>
-<p>Press the button below to receive good luck.</p>
 
-<button id="luckButton">Get Good Luck</button>
+<button id="playBtn">Tap for Good Luck</button>
 
-<audio id="drumroll" src="drumroll.mp3"></audio>
-<audio id="rickroll" src="rickroll.mp3"></audio>
+<audio id="drum" preload="auto">
+    <source src="drumroll.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="rick" preload="auto">
+    <source src="rickroll.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const button = document.getElementById("luckButton");
-const drum = document.getElementById("drumroll");
-const rick = document.getElementById("rickroll");
+const btn = document.getElementById("playBtn");
+const drum = document.getElementById("drum");
+const rick = document.getElementById("rick");
 
-button.onclick = () => {
-    button.disabled = true;
-    document.body.innerHTML =
-        "<h1>🍀 Generating Good Luck... 🍀</h1>";
+btn.addEventListener("click", async () => {
+    btn.style.display = "none";
 
-    drum.play();
+    try {
+        await drum.play();
 
-    drum.onended = () => {
-        document.body.innerHTML =
-            "<h1>🎉 YOU GOT RICKROLLED 🎉</h1>" +
-            "<h2>Never gonna give you up...</h2>";
+        drum.addEventListener("ended", () => {
+            document.body.innerHTML =
+                "<h1>🎉 YOU GOT RICKROLLED 🎉</h1>";
 
-        rick.play();
-    };
-};
+            rick.play();
+        }, { once: true });
+
+    } catch (err) {
+        alert("Audio failed to play.");
+    }
+});
 </script>
 
 </body>
 </html>
+```
