@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Good Luck Generator</title>
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    text-align:center;
+    margin-top:25vh;
+}
+button{
+    font-size:24px;
+    padding:20px 40px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>🍀 Good Luck Generator 🍀</h1>
+<p>Press the button below to receive good luck.</p>
+
+<button id="luckButton">Get Good Luck</button>
+
+<audio id="drumroll" src="drumroll.mp3"></audio>
+<audio id="rickroll" src="rickroll.mp3"></audio>
+
+<script>
+const button = document.getElementById("luckButton");
+const drum = document.getElementById("drumroll");
+const rick = document.getElementById("rickroll");
+
+button.onclick = () => {
+    button.disabled = true;
+    document.body.innerHTML =
+        "<h1>🍀 Generating Good Luck... 🍀</h1>";
+
+    drum.play();
+
+    drum.onended = () => {
+        document.body.innerHTML =
+            "<h1>🎉 YOU GOT RICKROLLED 🎉</h1>" +
+            "<h2>Never gonna give you up...</h2>";
+
+        rick.play();
+    };
+};
+</script>
+
+</body>
+</html>
