@@ -2,48 +2,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Good Luck Generator</title>
+<meta charset="UTF-8">
+<title>Good Luck Generator 🍀</title>
+
 <style>
 body{
-    background:#111;
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    font-family:Arial,sans-serif;
     color:white;
     text-align:center;
-    font-family:Arial,sans-serif;
-    margin-top:30vh;
 }
+
+.card{
+    background:rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:25px;
+    backdrop-filter:blur(10px);
+    max-width:500px;
+    width:90%;
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
+}
+
+h1{
+    margin-top:0;
+    font-size:3em;
+}
+
+p{
+    opacity:.85;
+    font-size:1.2em;
+}
+
 button{
-    font-size:28px;
-    padding:15px 30px;
+    border:none;
+    border-radius:50px;
+    padding:18px 40px;
+    font-size:1.3em;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.goodluck{
+    background:#22c55e;
+    color:white;
+    box-shadow:0 0 20px rgba(34,197,94,.6);
+}
+
+.claim{
+    background:#facc15;
+    color:black;
+    box-shadow:0 0 20px rgba(250,204,21,.6);
+}
+
+.rick{
+    color:#ff66cc;
+    text-shadow:0 0 20px #ff66cc;
 }
 </style>
 </head>
+
 <body>
 
-<h1>🍀 Good Luck Generator 🍀</h1>
-
-<button id="startBtn">Tap for Good Luck</button>
+<div class="card" id="card">
+    <h1>🍀 Good Luck Generator</h1>
+    <p>Tap below to receive today's lucky blessing.</p>
+    <button class="goodluck" id="startBtn">
+        Tap for Good Luck
+    </button>
+</div>
 
 <audio id="drum" src="drumroll.mp3"></audio>
 <audio id="rick" src="rickroll.mp3"></audio>
 
 <script>
+const card = document.getElementById("card");
 const startBtn = document.getElementById("startBtn");
+
 const drum = document.getElementById("drum");
 const rick = document.getElementById("rick");
 
 startBtn.onclick = async () => {
+
     startBtn.style.display = "none";
+
+    card.innerHTML = `
+        <h1>🍀 Generating Luck...</h1>
+        <p>Your fortune is being calculated...</p>
+    `;
+
     await drum.play();
 
     drum.onended = () => {
-        document.body.innerHTML = `
-            <h1>🍀 Your Good Luck Is Ready!</h1>
-            <button id="claimBtn">🎁 Claim Your Good Luck</button>
+
+        card.innerHTML = `
+            <h1>✨ Congratulations!</h1>
+            <p>Your luck has been generated.</p>
+            <button class="claim" id="claimBtn">
+                🎁 Claim Your Good Luck
+            </button>
         `;
 
         document.getElementById("claimBtn").onclick = () => {
-            document.body.innerHTML =
-                "<h1>🎉 YOU GOT RICKROLLED 🎉</h1>";
+
+            card.innerHTML = `
+                <h1 class="rick">🎉 YOU GOT RICKROLLED 🎉</h1>
+                <p>Never gonna give you up...</p>
+            `;
 
             rick.play();
         };
